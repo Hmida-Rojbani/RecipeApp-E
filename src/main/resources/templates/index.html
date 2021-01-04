@@ -27,7 +27,7 @@
 						<h1 class="panel-title"> My Recipes !!!</h1>
 					</div>
 					<div class="panel-body">
-					 <div class="table-responsive" >
+					 <div class="table-responsive" th:if="${not #lists.isEmpty(recipes)}">
 					  <table class="table table-hover">
 					  	<thead class="thead-inverse">
 					  	<tr>  
@@ -38,21 +38,27 @@
 					  	    <th> Delete </th>
 					  	</tr>	  	
 					  	</thead>
-					  	<tr >
+					  	<tr th:remove="all">
 					  	     <td> 123 </td>
 					  	     <td> Taste Good </td>
 					  	     <td> <a href="#">View</a> 
 					  	     <td> <a href="#">Update</a> 
 					  	     <td> <a href="#">Delete</a> 
 					  	</tr>
-					  	<tr >
+					  	<tr th:remove="all">
 					  	     <td> 124 </td>
 					  	     <td> Taste Gooood </td>
 					  	     <td> <a href="#">View</a> 
 					  	     <td> <a href="#">Update</a> 
 					  	     <td> <a href="#">Delete</a> 
 					  	</tr>
-
+					  	<tr th:each="recipe : ${recipes}">
+					  	     <td th:text="${recipe.id}"> 124 </td>
+					  	     <td th:text="${recipe.description}"> Taste Gooood </td>
+					  	     <td> <a th:href="@{'/recipe/'+ ${recipe.id}+'/show'}">View</a> 
+					  	     <td> <a href="#">Update</a> 
+					  	     <td> <a href="#">Delete</a> 
+					  	</tr>
 					  </table>
 					 </div>
 					</div>
