@@ -1,6 +1,7 @@
 package de.tekup.recipe.data.models;
 
 import java.time.LocalTime;
+import java.util.ArrayList;
 import java.util.List;
 
 import javax.persistence.Column;
@@ -17,7 +18,8 @@ import lombok.Getter;
 import lombok.Setter;
 
 @Entity
-@Getter@Setter
+@Getter
+@Setter
 public class Recipe {
 
 	@Id
@@ -25,18 +27,23 @@ public class Recipe {
 	private Long id;
 	@Column(length = 50)
 	private String description;
-	
+
 	private Integer servings;
-	
+
 	private LocalTime prepTime;
-	
+
 	private LocalTime cookTime;
 	@Enumerated(EnumType.STRING)
-	private Difficulty diffyculty;
+	private Difficulty difficulty;
 	@Lob
 	private String directions;
-	
+
 	@OneToMany(mappedBy = "recipe")
-	List<Ingredient> ingredients;
-	
+	List<Ingredient> ingredients = new ArrayList<>();
+
+	public Recipe addIngredient(Ingredient ingredient) {
+		ingredient.setRecipe(this);
+		this.ingredients.add(ingredient);
+		return this;
+	}
 }
